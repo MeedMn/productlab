@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} | Product-Lab</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css">
+    <script src="https://kit.fontawesome.com/377970dfe4.js" crossorigin="anonymous"></script>
+    <style>
+        @media screen and (max-width: 767px) {
+            .headerNavOption .icon , .badge{
+              display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option d-flex justify-content-around">
+            <a href="#" class="search-switch text-dark me-3"><i class="fa fa-search icon" style="font-size:25px;"></i></a>
+                          <a href="#" class="text-danger me-3"><i class="fa fa-heart icon" style="font-size:25px;"></i></a>
+                          <a href="#" class="text-dark position-relative d-inline-flex align-items-center me-3">
+                            <i class="fa fa-shopping-cart icon" style="font-size:25px;"></i>
+                          </a>
+            <a href="#" class="text-dark me-3"><i class="fa fa-user icon" style="font-size:25px;"></i></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="header__logo">
+                            <a href="{% url 'index' %}" class="navbar-brand">
+                                <h5 class="mb-0">
+                                  <span class="text-primary" style="font-size: 1.7rem;">Product</span>
+                                  <span class="text-secondary" style="font-size: 1.2rem;">Lab.</span>
+                                </h5>
+                              </a>                          
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="/">Shop</a></li>
+                                <li><a href="#">Categories</a>
+                                    <ul class="dropdown">
+                                        <li><a href="/">Men Clothing</a></li>
+                                        <li><a href="/">Women Clothing</a></li>
+                                        <li><a href="/">Electronics</a></li>
+                                        <li><a href="/">Accessories</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'about' %}">About-us</a></li>
+                                <li><a href="{% url 'contact' %}">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="headerNavOption header__nav__option d-flex align-items-center">
+                          <a href="#" class="search-switch text-dark me-3"><i class="fa fa-search icon" style="font-size:20px;"></i></a>
+                          <a href="#" class="text-danger me-3"><i class="fa fa-heart icon" style="font-size:20px;"></i></a>
+                          <a href="#" class="text-dark position-relative d-inline-flex align-items-center me-3">
+                            <i class="fa fa-shopping-cart icon" style="font-size:20px;"></i>
+                            <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle ms-1" style="font-size: 9px; color:white;margin: 0px 12px -66px 12px;">0</span>
+                          </a>
+                          <a href="#" class="text-dark me-3"><i class="fa fa-user icon" style="font-size:20px;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="{% url 'index' %}" class="navbar-brand">
+                                <h5 class="mb-0">
+                                  <span class="text-primary" style="font-size: 1.7rem;">Product</span>
+                                  <span class="text-secondary" style="font-size: 1.2rem;">Lab.</span>
+                                </h5>
+                              </a>
+                        </div>
+                        <p>Here you can find all the products you are looking for.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Shopping</h6>
+                        <ul>
+                            <li><a href="{% url 'contact' %}"></a>">Contact Us</a></li>
+                            <li><a href="{% url 'about' %}">About-Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Become Vendor</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>NewLetter</h6>
+                        <div class="footer__newslatter">
+                            <p>Be the first to know about new products</p>
+                            <form action="#">
+                                <input type="text" placeholder="Your email">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <p>Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                            All rights reserved | Product-Lab
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'src/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'src/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'src/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'src/js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'src/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'src/js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'src/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'src/js/mixitup.min.js' %}"></script>
+    <script src="{% static 'src/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'src/js/main.js' %}"></script>
+</body>
+
+</html>
