@@ -6,9 +6,14 @@ from apps.product.models import Category, Product
 
 def shop(request):
     categories = Category.objects.all()
-    products1 = Product.objects.all()
+    products = Product.objects.all()
+    sort_by = request.GET.get('sort_by', None)
+    if sort_by == 'low_to_high':
+        products = products.order_by('price')
+    elif sort_by == 'high_to_low':
+        products = products.order_by('-price')
     page = request.GET.get('page', 1)
-    paginator = Paginator(products1, 12)
+    paginator = Paginator(products, 12)
     try:
         products = paginator.page(page)
     except PageNotAnInteger:
