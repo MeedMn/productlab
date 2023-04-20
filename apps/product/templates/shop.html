@@ -59,14 +59,13 @@
                                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__price">
-                                            <ul>
-                                                <li><a href="#">$0.00 - $50.00</a></li>
-                                                <li><a href="#">$50.00 - $100.00</a></li>
-                                                <li><a href="#">$100.00 - $150.00</a></li>
-                                                <li><a href="#">$150.00 - $200.00</a></li>
-                                                <li><a href="#">$200.00 - $250.00</a></li>
-                                                <li><a href="#">250.00+</a></li>
-                                            </ul>
+                                            <form method="get" class="price-range-form">
+                                                <div class="range-slider">
+                                                  <span>$0</span>
+                                                  <input type="range" id="price_range" name="price_range" min="0" max="{{ max }}" step="10" value="{{ request.GET.price_range|default:'max' }}" onchange="this.form.submit()">
+                                                  <span>{% if request.GET.price_range %}${{ request.GET.price_range }}{% else %}Max{% endif %}</span>
+                                                </div>
+                                              </form>
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +141,7 @@
                                         {% if products.number == i %}
                                         <li class="active"><a style="border-color: #111111;">{{i}}</a></li>
                                         {% else %}
-                                        <li><a href="?page={{i}}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{i}}</a></li>
+                                        <li><a href="?page={{i}}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}">{{i}}</a></li>
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
