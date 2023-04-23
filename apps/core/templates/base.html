@@ -93,10 +93,9 @@
                                 <li><a href="{% url 'shop' %}">Shop</a></li>
                                 <li><a href="#">Categories</a>
                                     <ul class="dropdown">
-                                        <li><a href="/">Men Clothing</a></li>
-                                        <li><a href="/">Women Clothing</a></li>
-                                        <li><a href="/">Electronics</a></li>
-                                        <li><a href="/">Accessories</a></li>
+                                        {% for category in categories %}
+                                                <li><a href="{% url 'category' category.slug %}">{{category.title}}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'about' %}">About-us</a></li>
