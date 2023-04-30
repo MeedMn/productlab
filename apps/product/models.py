@@ -38,7 +38,7 @@ class Product(models.Model):
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=False)
     code_ref = models.CharField(max_length=255)
     rating = models.DecimalField(max_digits=5,decimal_places=2)
-    qte = models.ImageField(default=10)
+    qte = models.IntegerField(default=10)
     ordering = models.IntegerField(default=random_int)
     
     class Meta:
