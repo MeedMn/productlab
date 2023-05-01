@@ -3,12 +3,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.product.models import Category, Product
 from django.db.models import Max
-
 # Create your views here.
 
 def product(request,category_slug,product_slug):
     product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
-    return render(request, 'product.html',{'product':product})
+    relatedProducts = Product.objects.filter(category__slug=category_slug)[1:5]
+    return render(request, 'product.html',{'product':product,'relatedProducts':relatedProducts})
 
 def category(request,category_slug):
     category = get_object_or_404(Category,slug=category_slug)
@@ -29,7 +29,7 @@ def category(request,category_slug):
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-    return render(request,'shop.html',{'products':products})
+    return render(request,'shop.html',{'products':products,"categoryTitle":category.title})
 
 def shop(request):
     products = Product.objects.all()
@@ -51,4 +51,4 @@ def shop(request):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
         
-    return render(request,'shop.html',{"products":products,'max':max})
+    return render(request,'shop.html',{"products":products,'max':max,'categoryTitle':"All"})

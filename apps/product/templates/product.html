@@ -3,6 +3,7 @@
 {% block title %}Product Details{% endblock %}
 
 {% load static %}
+{% load stars_tags %}
 
 {% block content %}
 
@@ -48,15 +49,11 @@
                     <div class="product__details__text">
                         <h4>{{product.title}}</h4>
                         <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
+                            {% stars_tag product %}
+                            <span> - 245 Reviews</span>
                         </div>
                         <h3>${{product.price}}</h3>
-                        <p>{{product.description}}</p>
+                        <p>{{product.qte}} In Stock</p>
                         <div class="product__details__cart__option">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -67,11 +64,8 @@
                         </div>
                         <div class="product__details__btns__option">
                             <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                            <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
                         </div>
                         <div class="product__details__last__option">
-                            <h5><span>Guaranteed Safe Checkout</span></h5>
-                            <img src="{% static 'dist/img/shop-details/details-payment.png' %}" alt="">
                             <ul>
                                 <li><span>Ref:</span> {{product.code_ref}}</li>
                                 <li><span>Categories:</span> {{product.category.title}}</li>
@@ -81,6 +75,121 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" 
+                                role="tab">Description</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Products Infomation</h5>
+                                        <p>{{product.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab"  role="tab">Customer
+                                Comments</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" style="background-color: #f7f6f6; padding-bottom: 35px;">
+                            <div class="tab-pane active" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item pb-6">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-md-12 col-lg-10">
+                                              <div class="card text-dark">
+                                                <div class="card-body p-4">
+                                                  <button type="button" class="btn btn-sm btn-danger" style="border-radius: 50%; position:absolute; right:45px;"><i class="fas fa-times"></i></button>
+                                                  <div class="d-flex flex-start">
+                                                    <img class="rounded-circle shadow-1-strong me-3 mr-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(33).webp" alt="avatar" width="60" height="60" style="margin-right: 20px;"/>
+                                                    <div>
+                                                      <h6 class="fw-bold mb-1">Alexa Bennett</h6>
+                                                      <div class="d-flex align-items-center mb-3">
+                                                        <p class="mb-0">
+                                                          March 24, 2021
+                                                        </p>
+                                                      </div>
+                                                      <p class="mb-0">
+                                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure.
+                                                      </p>
+                                                    </div>
+                                                  </div>
+                                                  <hr class="my-0" style="height: 1px;" />
+                                                  <div class="input-group mt-4">
+                                                    <input type="text" class="form-control" placeholder="Add a comment...">
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-outline-secondary" type="button"><i class="fas fa-comment"></i></button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Related Product</h3>
+            </div>
+        </div>
+        <div class="row">
+            {% for p in relatedProducts %}
+            <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{ p.get_Thumbnail }}">
+                        <span class="label">New</span>
+                        <ul class="product__hover">
+                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6>{{p.title}}</h6>
+                        <a href="#" class="add-cart">+ Add To Cart</a>
+                        <div class="rating">
+                            {% stars_tag p %}
+                        </div>
+                        <h5>$67.24</h5>
+                        <div class="product__color__select">
+                            <label for="pc-1">
+                                <input type="radio" id="pc-1">
+                            </label>
+                            <label class="active black" for="pc-2">
+                                <input type="radio" id="pc-2">
+                            </label>
+                            <label class="grey" for="pc-3">
+                                <input type="radio" id="pc-3">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

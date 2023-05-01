@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load stars_tags %}
 
 {% block title %}Home{% endblock %}
 
@@ -155,11 +156,7 @@
                         <h6>{{product.title}}</h6>
                         <a href="#" class="add-cart">+ Add To Cart</a>
                         <div class="rating">
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                            {% stars_tag product %}
                         </div>
                         <h5>${{product.price}}</h5>
                         <div class="product__color__select">
@@ -191,11 +188,7 @@
                         <h6>{{product.title}}</h6>
                         <a href="#" class="add-cart">+ Add To Cart</a>
                         <div class="rating">
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                            {% stars_tag product %}
                         </div>
                         <h5>${{product.price}}</h5>
                         <div class="product__color__select">
