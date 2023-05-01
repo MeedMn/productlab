@@ -64,3 +64,15 @@ class Product(models.Model):
                 self.thumbnail = self.make_thumbnail(self.image)
                 self.save()
                 return self.thumbnail.url
+            
+class Comment(models.Model):
+    user1 = models.CharField(max_length=255)
+    product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
+    content = models.CharField(max_length=255)
+    date_created = models.DateTimeField(default=datetime.datetime.now , blank=True)
+    
+    class Meta: 
+        ordering = ('-date_created',) 
+
+    def __str__(self): 
+        return 'Comment by {} on {}'.format(self.user1, self.product.title)
