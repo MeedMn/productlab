@@ -1,14 +1,31 @@
 import math
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from apps.product.models import Category, Product
+from django.urls import reverse
+from apps.product.models import Category, Comment, Product
 from django.db.models import Max
 # Create your views here.
+
+def delete_comment(request,comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    comment.delete()
+    return redirect(request.META['HTTP_REFERER'])
 
 def product(request,category_slug,product_slug):
     product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
     relatedProducts = Product.objects.filter(category__slug=category_slug)[1:5]
-    return render(request, 'product.html',{'product':product,'relatedProducts':relatedProducts})
+    print("test1")
+    comments = Comment.objects.all().filter(product=product)
+    print("test",)
+    if request.method == 'GET' and request.GET.get('commentbtn'):
+        print(request.GET)
+        comment_text = request.GET.get('comment')
+        User = request.user.username
+        comment = Comment.objects.create(product=product,user1=User,content=comment_text)
+        comment.save()
+        return HttpResponseRedirect(reverse('product', args=(category_slug,product_slug,)))
+    return render(request, 'product.html',{'product':product,'comments':comments,'relatedProducts':relatedProducts})
 
 def category(request,category_slug):
     category = get_object_or_404(Category,slug=category_slug)
@@ -52,3 +69,4 @@ def shop(request):
         products = paginator.page(paginator.num_pages)
         
     return render(request,'shop.html',{"products":products,'max':max,'categoryTitle':"All"})
+

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import  render, redirect,get_object_or_404
 from .UserFroms import *
-from django.contrib.auth import login, authenticate, update_session_auth_hash
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from apps.user.UserFroms import UserForm
 from .models import UserModel
@@ -16,10 +16,10 @@ def SignUp_user(request):
             for us in all_users:
                 if us.email == user.email:
                     messages.error(request, 'That email is already in use')
-                    return redirect('SignUp_user')
+                    return redirect('signupuser')
                 if us.name == user.username:
                     messages.error(request, 'That username is already in use')
-                    return redirect('SignUp_user')
+                    return redirect('signupuser')
             login(request, user)
             users = UserModel.objects.create(name=user.username,email=user.email,creator=user)
             messages.success(request, 'Signed up successfully!')
@@ -31,17 +31,17 @@ def SignUp_user(request):
             password2 = form.cleaned_data.get('password2')
             if password != password2:
                 messages.error(request, 'Passwords do not match! Try again')
-                return redirect('SignUp_user')
+                return redirect('signupuser')
             all_users = UserModel.objects.all()
             for us in all_users:
                 if us.email == email:
                     messages.error(request, 'That email is already in use')
-                    return redirect('SignUp_user')
+                    return redirect('signupuser')
                 if us.name == username:
                     messages.error(request, 'That username is already in use')
-                    return redirect('SignUp_user')
+                    return redirect('signupuser')
             messages.error(request, 'Username/Email invalid')
-            return redirect('SignUp_user')
+            return redirect('signupuser')
 
     form = UserForm()
     return render(request=request, template_name="SignUp_user.html", context={'form':form})
@@ -59,7 +59,7 @@ def Login_user(request):
                 messages.success(request, 'Signed in successfully!')
                 return redirect("/")
         else:
-            return redirect('Login_user')
+            return redirect('loginuser')
     else:
         form = AuthenticationForm()
     return render(request=request, template_name="Login_user.html", context={"form":form})

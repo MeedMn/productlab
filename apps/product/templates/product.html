@@ -113,30 +113,49 @@
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-md-12 col-lg-10">
                                               <div class="card text-dark">
+                                                {% if comments %}
+                                                {% for comment in comments %}
                                                 <div class="card-body p-4">
-                                                  <button type="button" class="btn btn-sm btn-danger" style="border-radius: 50%; position:absolute; right:45px;"><i class="fas fa-times"></i></button>
+                                                  {% if comment.user1 == request.user.username %}
+                                                  <a href="{% url 'delete_comment' comment.id %}" class="btn btn-sm btn-danger" style="border-radius: 50%; position:absolute; right:45px;"><i class="fas fa-times"></i></a>
+                                                  {% endif %}
                                                   <div class="d-flex flex-start">
-                                                    <img class="rounded-circle shadow-1-strong me-3 mr-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(33).webp" alt="avatar" width="60" height="60" style="margin-right: 20px;"/>
+                                                    <img class="rounded-circle shadow-1-strong me-3 mr-3" src="https://th.bing.com/th/id/OIP.euqcyHvusXHENYgYwF-C5wHaFh?pid=ImgDet&rs=1" alt="avatar" width="60" height="50"/>
                                                     <div>
-                                                      <h6 class="fw-bold mb-1">Alexa Bennett</h6>
+                                                      <h6 class="fw-bold mb-1">{{comment.user1}}</h6>
                                                       <div class="d-flex align-items-center mb-3">
                                                         <p class="mb-0">
-                                                          March 24, 2021
+                                                          {{comment.date_created}}
                                                         </p>
                                                       </div>
                                                       <p class="mb-0">
-                                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure.
+                                                        {{comment.content}}
                                                       </p>
                                                     </div>
                                                   </div>
-                                                  <hr class="my-0" style="height: 1px;" />
-                                                  <div class="input-group mt-4">
-                                                    <input type="text" class="form-control" placeholder="Add a comment...">
-                                                    <div class="input-group-append">
-                                                      <button class="btn btn-outline-secondary" type="button"><i class="fas fa-comment"></i></button>
-                                                    </div>
-                                                  </div>
                                                 </div>
+                                                <hr class="my-0" style="height: 1px;" />
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="d-flex justify-content-center">
+                                                    <h6 style="margin-top: 25px;">No Comment</h6>
+                                                </div>
+                                                {% endif %}
+                                                <form method="GET" action=".">
+                                                  <div class="input-group mt-4">
+                                                    {% if request.user.is_authenticated %}
+                                                    <input type="text" class="form-control" placeholder="Add a comment..." name="comment">
+                                                    <div class="input-group-append">
+                                                      <button type="submit" name="commentbtn" value="comment" class="btn btn-outline-secondary"><i class="fas fa-comment"></i></button>
+                                                    </div>
+                                                    {% else %}
+                                                    <input type="text" class="form-control" placeholder="Sign in | Sign up to comment" disabled>
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-outline-secondary" type="button" disabled><i class="fas fa-comment"></i></button>
+                                                    </div>
+                                                    {% endif %}
+                                                  </div>
+                                                </form>
                                               </div>
                                             </div>
                                           </div>
@@ -164,8 +183,8 @@
                     <div class="product__item__pic set-bg" data-setbg="{{ p.get_Thumbnail }}">
                         <span class="label">New</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
+                            <li><a href="#"><img src="{% static 'dist/img/icon/search.png' %}" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
