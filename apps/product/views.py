@@ -15,9 +15,7 @@ def delete_comment(request,comment_id):
 def product(request,category_slug,product_slug):
     product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
     relatedProducts = Product.objects.filter(category__slug=category_slug)[1:5]
-    print("test1")
     comments = Comment.objects.all().filter(product=product)
-    print("test",)
     if request.method == 'GET' and request.GET.get('commentbtn'):
         print(request.GET)
         comment_text = request.GET.get('comment')
