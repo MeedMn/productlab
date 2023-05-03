@@ -65,6 +65,30 @@ class Product(models.Model):
                 self.save()
                 return self.thumbnail.url
             
+            
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+
+    def make_thumbnail(self,image,size=(300, 200)):
+        img = Image.open(image)
+        src_img = img.convert('RGB')
+        src_img.thumbnail(size)
+        thumb_io = BytesIO()
+        src_img.save(thumb_io, 'JPEG',quality=85)
+        thumbnail = File(thumb_io,name=image.name)
+        return thumbnail
+
+    def get_Thumbnail(self):
+        if self.thumbnail :
+            return self.thumbnail.url
+        else:
+            if self.image :
+                self.thumbnail = self.make_thumbnail(self.image)
+                self.save()
+                return self.thumbnail.url
+
 class Comment(models.Model):
     user1 = models.CharField(max_length=255)
     product = models.ForeignKey(Product, related_name='comments', on_delete=models.CASCADE)
