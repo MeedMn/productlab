@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Add your artwork{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<!-- Breadcrumb Area Start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'add_product' %}">Add Artwork</a></li>
+                    </ol>
+                </nav>
+                <h5>Artwork details</h5>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<main>
+    <section class="account-sign">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10 col-md-12">
+                    <div class="account-sign-in">
+                        <h1 class="text-center">Add artwork</h1>
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <hr>
+                            {{ more_images|crispy }}
+                            <input class="mb-3" type="button" value=" Clear " onclick="clearField();">
+                            <button class="btn btn-primary mb-3" type="submit">submit</button>
+                            <a class="btn btn-primary" href="{% url 'dashboard' %}">Back</a>
+                            <hr>
+                            <p style="color:black;" class="mt-3">Dimensions and weight <strong>must</strong> be included in the description!</p>
+                            <p class="mt-3">* required</p>  
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    function clearField() {
+        document.getElementById("id_more_images").value = "";
+   }
+</script>
+
+{% endblock %}
