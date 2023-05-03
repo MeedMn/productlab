@@ -6,7 +6,7 @@ class ProductForms(ModelForm):
 	price = forms.FloatField(widget=forms.NumberInput(attrs={'min':0,'max':9999}))
 	class Meta:
 		model = Product
-		fields = ('category','image','title','description','price')
+		fields = ('category','image','title','description','price','qte')
 
 class ProductImageForm(forms.Form):
 	more_images = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple':True}))
