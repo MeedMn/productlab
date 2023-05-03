@@ -47,6 +47,12 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    def unique_id(self):
+        productName_bytes = self.title.encode()
+        base64_bytes = b64encode(productName_bytes)
+        base64_string = base64_bytes.decode()
+        self.code_ref = base64_string[:10]
+
     def make_thumbnail(self,image,size=(370,340)):
         img = Image.open(image)
         src_img = img.convert('RGB')
