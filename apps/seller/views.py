@@ -2,9 +2,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import  render, redirect,get_object_or_404
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib import messages
+from apps.product import ProductForms
+from apps.product.models import Product, ProductImage
 from apps.user.UserFroms import *
 from .models import Seller
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 
 # Create your views here.
 def SignUp_seller(request):
@@ -69,3 +72,35 @@ def dashboard(request):
     seller = request.user.seller
     products = seller.products.all().order_by("-date_added")
     return render(request,"Dashboard.html",{"seller":seller,"products":products})
+
+@login_required(login_url='Login_seller')
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForms(request.POST, request.FILES)
+        more_images = ProductForms.ProductImageForm(request.POST, request.FILES)
+        if (form.is_valid() and more_images.is_valid()) or form.is_valid():
+            if float(request.POST.get('price')) < 10000 and float(request.POST.get('price')) > 0 :
+                products = Product.objects.all()
+                product = form.save(commit=False)
+                for existing in products:
+                    if product.title == existing.title:
+                        messages.success(request, 'That title is already taken!')
+                        return redirect('add_product')
+                product.vendor = request.user.vendor
+                product.slug = slugify(product.title)
+                product.generate_ref()
+                product.save()
+                images = request.FILES.getlist('more_images')
+                if images:
+                    for image in images:
+                        image = ProductImage(image=image, product=product)
+                        image.save()
+                messages.success(request, 'Your artwork is now pending review!')
+            else:
+                messages.error(request,"The price must be between €1 and €9999!")
+                return render(request,'vendor/add_product.html',{'form':form,'more_images':more_images})
+            return redirect('vendor_admin')
+    else:
+        form = ProductForms()
+        more_images = ProductForms.ProductImageForm()
+    return render(request,'add_product.html',{'form':form,'more_images':more_images})
