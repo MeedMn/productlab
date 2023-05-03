@@ -5,8 +5,20 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .table thead {
+  background-color: #111111;
+  color: white;
+}
+.dataTables_filter label{
+text-align: start;
+}
+.pagination{
+    justify-content: end;
+}
+</style>
 <div class="container">
-    <h1>Dashboard</h1>
+    <h3>Dashboard</h3>
     {% if products %}
     <table class="table table-striped table-bordered" id="my-table">
       <thead>
@@ -23,7 +35,7 @@
       <tbody>
         {% for product in products %}
         <tr style="height: 50px;">
-          <td><img src="{{ product.get_Thumbnail }}" alt="Product Name" class="img-fluid"></td>
+          <td><img src="{{ product.get_Thumbnail }}" alt="Product Name" class="img-fluid" style="max-width: 70%;"></td>
           <td>{{product.code_ref}}</td>
           <td>{{product.title}}</td>
           <td>{{product.price}}</td>
@@ -58,9 +70,9 @@
           "next": ">"
         }
       },
-      "dom": '<"row"<"col-sm-6"l><"col-sm-6"f>>' +
-             '<"row"<"col-sm-12"tr>>' +
-             '<"row"<"col-sm-5"i><"col-sm-7"p>>'
+      "dom": '<"row"<"col-sm-6"l><"col-sm-6 text-right"f>>' +
+      '<"row"<"col-sm-12"tr>>' +
+      '<"row"<"col-sm-5"i><"col-sm-7"p>>'
     });
     $('#page-length').on('change', function() {
       $('#my-table').DataTable().page.len($(this).val()).draw();
