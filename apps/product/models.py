@@ -37,7 +37,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='uploads/', blank=False, null=False)
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=False)
     code_ref = models.CharField(max_length=255)
-    rating = models.DecimalField(max_digits=5,decimal_places=2)
+    rating = models.DecimalField(max_digits=5,decimal_places=2,null=True)
     qte = models.IntegerField(default=10)
     ordering = models.IntegerField(default=random_int)
     
@@ -47,7 +47,7 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
-    def unique_id(self):
+    def generate_ref(self):
         productName_bytes = self.title.encode()
         base64_bytes = b64encode(productName_bytes)
         base64_string = base64_bytes.decode()

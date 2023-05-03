@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import  render, redirect,get_object_or_404
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib import messages
-from apps.product import ProductForms
+from apps.product.ProductForms import *
 from apps.product.models import Product, ProductImage
 from apps.user.UserFroms import *
 from .models import Seller
@@ -77,7 +77,7 @@ def dashboard(request):
 def add_product(request):
     if request.method == 'POST':
         form = ProductForms(request.POST, request.FILES)
-        more_images = ProductForms.ProductImageForm(request.POST, request.FILES)
+        more_images = ProductImageForm(request.POST, request.FILES)
         if (form.is_valid() and more_images.is_valid()) or form.is_valid():
             if float(request.POST.get('price')) < 10000 and float(request.POST.get('price')) > 0 :
                 products = Product.objects.all()
@@ -86,7 +86,7 @@ def add_product(request):
                     if product.title == existing.title:
                         messages.success(request, 'That title is already taken!')
                         return redirect('add_product')
-                product.vendor = request.user.vendor
+                product.seller = request.user.seller
                 product.slug = slugify(product.title)
                 product.generate_ref()
                 product.save()
@@ -98,9 +98,9 @@ def add_product(request):
                 messages.success(request, 'Your artwork is now pending review!')
             else:
                 messages.error(request,"The price must be between €1 and €9999!")
-                return render(request,'vendor/add_product.html',{'form':form,'more_images':more_images})
-            return redirect('vendor_admin')
+                return render(request,'add_product.html',{'form':form,'more_images':more_images})
+            return redirect('dashboard')
     else:
         form = ProductForms()
-        more_images = ProductForms.ProductImageForm()
+        more_images = ProductImageForm()
     return render(request,'add_product.html',{'form':form,'more_images':more_images})
