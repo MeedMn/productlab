@@ -60,8 +60,8 @@
     </thead>
     <tbody>
       {% for product in products %}
-      <tr style="height: 50px;">
-        <td><img src="{{ product.get_Thumbnail }}" alt="Product Name" class="img-fluid" style="max-width: 70%;"></td>
+      <tr style="height: 40px;">
+        <td><img src="{{ product.get_Thumbnail }}" alt="Product Name" class="img-fluid"></td>
         <td>{{product.code_ref}}</td>
         <td>{{product.title}}</td>
         <td>{{product.price}}</td>
