@@ -58,7 +58,7 @@
                                 <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
                                 {% for s in sellers %}
                                 {% if s.name == user.username %}
-                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                                 {% endif %}
                                 {% endfor %}
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
@@ -120,7 +120,7 @@
                                 <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
                                 {% for s in sellers %}
                                 {% if s.name == user.username %}
-                                <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                                 {% endif %}
                                 {% endfor %}
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
@@ -218,6 +218,8 @@
     <script src="{% static 'src/js/mixitup.min.js' %}"></script>
     <script src="{% static 'src/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'src/js/main.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
 </body>
 
 </html>

@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib import messages
 from apps.user.UserFroms import *
 from .models import Seller
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def SignUp_seller(request):
@@ -62,3 +63,9 @@ def Login_seller(request):
     else:
         form = AuthenticationForm()
     return render(request=request, template_name="Login_seller.html", context={"form":form})
+
+@login_required(login_url='Login_seller')
+def dashboard(request):
+    seller = request.user.seller
+    products = seller.products.all().order_by("-date_added")
+    return render(request,"Dashboard.html",{"seller":seller,"products":products})
