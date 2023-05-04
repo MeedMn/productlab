@@ -1,5 +1,7 @@
-from django.shortcuts import render
-
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.shortcuts import render,redirect
+from django.contrib import messages
 from apps.product.models import Product
 
 # Create your views here.
@@ -12,7 +14,7 @@ def about(request):
     return render(request, 'aboutUs.html')
 
 def contact(request):
-    if request.method == "POST" and request.POST.get('contact') : 
+    if request.method == "POST" and request.POST.get('contact'):
         from_email = settings.DEFAULT_EMAIL_FROM
         to_email = 'productlab010@gmail.com'
         subject = request.POST.get('subject')
