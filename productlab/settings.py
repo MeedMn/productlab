@@ -35,6 +35,15 @@ LOGOUT_REDIRECT_URL = '/'
 SESSION_COOKIE_AGE = 86400
 # Application definition
 
+#Sent Email
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS =True
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_HOST_USER ='productlab010@gmail.com'
+EMAIL_HOST_PASSWORD ='jtqkwcfxpgrdcirb'
+EMAIL_PORT =587
+DEFAULT_EMAIL_FROM = 'ProductLab Team <productlab010@gmail.com>'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
