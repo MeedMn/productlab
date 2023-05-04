@@ -63,7 +63,7 @@
       <tr style="height: 40px;">
         <td><img src="{{ product.get_Thumbnail }}" alt="Product Name" class="img-fluid"></td>
         <td>{{product.code_ref}}</td>
-        <td>{{product.title}}</td>
+        <td><a href="{% url 'product' product.category.slug product.slug %}" style="text-decoration: none;color:#111111">{{product.title}}</a></td>
         <td>{{product.price}}</td>
         <td>{{product.category.title}}</td>
         <td>{{product.qte}}</td>
