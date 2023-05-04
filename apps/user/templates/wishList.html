@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Login {% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Shopping Cart</h4>
+                    <div class="breadcrumb__links">
+                        <a href="{% url 'index' %}">Home</a>
+                        <a href="{% url 'shop' %}">Shop</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        {% if wishlist %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping_cart_table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Seller</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in wishlist %}
+                            <tr>
+                                <td class="product_cart_item">
+                                    <div class="product_cartitem_pic">
+                                        <img src="{{ item.product.get_Thumbnail }}" alt="">
+                                    </div> 
+                                    
+                                </td>
+                                <td>
+                                    <div class="product_cartitem_text">
+                                        <h6>{{ item.product.title }}</h6>
+                                       
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="product_cartitem_text">
+                                        <h5>${{ item.product.price }}</h5>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="product_cartitem_text">
+                                        <h5>{{ item.product.category.title }}</h5>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="product_cartitem_text">
+                                        <h5>{{ item.product.seller.name }}</h5>
+                                    </div>
+                                </td>
+                                
+                                <td class="cart__close"><a href="{% url 'delete_wishlist' id=item.product.id redirect_option=0 %}"><i class="fa fa-close"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>The whishlist is empty</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

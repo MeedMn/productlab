@@ -1,6 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import  render, redirect,get_object_or_404
-
 from apps.cart.cart import Cart
 from apps.product.models import Product
 from .UserFroms import *
@@ -9,7 +8,8 @@ from django.contrib import messages
 from apps.user.UserFroms import UserForm
 from .models import UserModel
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def SignUp_user(request):
     if request.method == "POST":
@@ -77,3 +77,49 @@ def add_cart(request,id):
     messages.success(request, 'This artwork was added to the cart!')
     user1 = UserModel.objects.get(name=request.user.username)
     return redirect('cart')
+
+
+
+@login_required(login_url='loginuser')
+def wishlist(request):
+    if request.method == "GET":
+        user1 = UserModel.objects.get(name=request.user.username)
+        wishlist = WishList.objects.filter(user=user1)
+        page = request.GET.get('page', 1)
+        paginator = Paginator(wishlist, 5)
+        try:
+            wishlist = paginator.page(page)
+        except PageNotAnInteger:
+            wishlist = paginator.page(1)
+        except EmptyPage:
+            wishlist = paginator.page(paginator.num_pages)
+        return render(request,"wishList.html",{'wishlist':wishlist})
+    
+
+
+
+@login_required(login_url='loginuser')
+def add_wishlist(request,id):
+    user1 = UserModel.objects.get(name=request.user.username)
+    wishlist = WishList()
+    if not WishList.objects.filter(Q(user=user1) & Q(product=Product.objects.get(id=id))):
+        wishlist = WishList.objects.create(user=user1, product = Product.objects.get(id=id))
+        wishlist.save()
+        messages.success(request, 'This artwork is in now in your wishlist!')
+    return redirect('/'+wishlist.product.category.slug+"/"+wishlist.product.slug)
+
+
+
+
+@login_required(login_url='loginuser')
+def delete_wishlist(request,id,redirect_option):
+    user1 = UserModel.objects.get(name=request.user.username)
+    wishlist = WishList.objects.filter(Q(user=user1) & Q(product = Product.objects.get(id=id)))
+    product = Product.objects.get(id=id)
+    wishlist.delete()
+    if not redirect_option == 1:
+        messages.success(request, 'That artwork has been removed from your wishlist')
+        return redirect('wishlist')
+    else:
+        messages.success(request, 'This artwork has been removed from your wishlist')
+        return redirect('/'+product.category.slug+'/'+product.slug)

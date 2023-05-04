@@ -101,7 +101,7 @@
                             <div class="product__item__pic set-bg" data-setbg="{{ product.get_Thumbnail }}">
                                 <span class="label">New</span>
                                 <ul class="product__hover">
-                                    <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
+                                    <li><a href="{% url 'add_wishlist' id=product.id %}"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
                                     <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                                 </ul>
                             </div>
