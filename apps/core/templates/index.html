@@ -148,12 +148,12 @@
                         <span class="label">New</span>
                         <ul class="product__hover">
                             <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
-                            <li><a href="#"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
+                            <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
                         <h6>{{product.title}}</h6>
-                        <a href="#" class="add-cart">+ Add To Cart</a>
+                        <a href="{% url 'product' product.category.slug product.slug %}" class="add-cart">+ See Details</a>
                         <div class="rating">
                             {% stars_tag product %}
                         </div>
@@ -179,12 +179,12 @@
                     <div class="product__item__pic set-bg" data-setbg="{{ product.get_Thumbnail }}">
                         <ul class="product__hover">
                             <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
-                            <li><a href="#"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
+                            <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
                         <h6>{{product.title}}</h6>
-                        <a href="#" class="add-cart">+ Add To Cart</a>
+                        <a href="{% url 'product' product.category.slug product.slug %}" class="add-cart">See Details</a>
                         <div class="rating">
                             {% stars_tag product %}
                         </div>

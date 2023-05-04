@@ -1,10 +1,14 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import  render, redirect,get_object_or_404
+
+from apps.cart.cart import Cart
+from apps.product.models import Product
 from .UserFroms import *
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from apps.user.UserFroms import UserForm
 from .models import UserModel
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def SignUp_user(request):
@@ -63,3 +67,13 @@ def Login_user(request):
     else:
         form = AuthenticationForm()
     return render(request=request, template_name="Login_user.html", context={"form":form})
+
+@login_required(login_url='loginuser')
+def add_cart(request,id):
+    print("inside")
+    cart = Cart(request)
+    product = get_object_or_404(Product,id=id)
+    cart.add(product_id=product.id)
+    messages.success(request, 'This artwork was added to the cart!')
+    user1 = UserModel.objects.get(name=request.user.username)
+    return redirect('cart')

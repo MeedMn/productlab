@@ -46,7 +46,7 @@
         <div class="offcanvas__option d-flex justify-content-around">
             <a href="#" class="search-switch text-dark me-3"><i class="fa fa-search icon" style="font-size:22px;"></i></a>
                           <a href="#" class="text-danger me-3"><i class="fa fa-heart icon" style="font-size:22px;"></i></a>
-                          <a href="#" class="text-dark me-6">
+                          <a href="{% url 'cart' %}" class="text-dark me-6">
                             <i class="fa fa-shopping-cart icon" style="font-size:22px;"></i>
                           </a>
                           <div class="dropdown">
@@ -107,9 +107,15 @@
                         <div class="headerNavOption header__nav__option d-flex align-items-center">
                           <a href="#" class="search-switch text-dark me-3"><i class="fa fa-search icon" style="font-size:20px;"></i></a>
                           <a href="#" class="text-danger me-3"><i class="fa fa-heart icon" style="font-size:20px;"></i></a>
-                          <a href="#" class="text-dark position-relative d-inline-flex align-items-center me-3">
+                          <a href="{% url 'cart' %}" class="text-dark position-relative d-inline-flex align-items-center me-3">
                             <i class="fa fa-shopping-cart icon" style="font-size:20px;"></i>
-                            <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle ms-1" style="font-size: 9px; color:white;margin: 0px 12px -66px 12px;">0</span>
+                            <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle ms-1" style="font-size: 9px; color:white;margin: 0px 12px -66px 12px;">
+                                {% if cart %}
+                                {{ cart|length }}
+                                {% else %}
+                                0
+                                {% endif%}
+                            </span>
                           </a>
                           <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: transparent;border-color: transparent;">

@@ -35,6 +35,9 @@ LOGOUT_REDIRECT_URL = '/'
 SESSION_COOKIE_AGE = 86400
 # Application definition
 
+#Cart
+CART_SESSION_ID = 'cart'
+
 #Sent Email
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'apps.cart',
     'apps.core',
     'apps.product',
     'apps.user',
@@ -80,6 +84,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'apps.cart.context_processors.cart',
                 'apps.seller.context_processors.sellers',
                 'apps.product.context_processors.menu_categories',
                 'django.contrib.auth.context_processors.auth',

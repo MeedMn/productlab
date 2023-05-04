@@ -102,7 +102,7 @@
                                 <span class="label">New</span>
                                 <ul class="product__hover">
                                     <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
+                                    <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
