@@ -67,7 +67,10 @@
         <td>{{product.price}}</td>
         <td>{{product.category.title}}</td>
         <td>{{product.qte}}</td>
-        <td></td>
+        <td>
+          <a href="{% url 'updateProduct' product.id %}"><button class="btn btn-success">Edit</button></a>
+          <a href="{% url 'deleteProduct' product.id %}"><button class="btn btn-danger">Delete</button></a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
