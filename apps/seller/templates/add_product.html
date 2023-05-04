@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Add your artwork{% endblock %}
+{% block title %}Add Your Artwork{% endblock %}
 
 {% block content %}
 
 {% load crispy_forms_tags %}
-
-<!-- Breadcrumb Area Start -->
+<style>
+    .form-label {
+        visibility: hidden;
+    }
+</style>
 <section class="breadcrumb-option">
     <div class="container">
         <div class="row">
@@ -25,38 +28,49 @@
 </section>
 
 <main>
-    <section class="account-sign py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10 col-md-12">
-                    <div class="account-sign-in p-4 border rounded">
-                        <form method="POST" action="" enctype="multipart/form-data" class="form">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <hr>
-                            {{ more_images|crispy }}
-                            <div class="d-grid gap-2">
-                                <input class="btn btn-secondary mb-3" type="button" value="Clear" onclick="clearField();">
-                                <button class="btn btn-primary mb-3" type="submit">Submit</button>
-                                <a class="btn btn-outline-primary" href="{% url 'dashboard' %}">Back</a>
-                            </div>
-                            <hr>
-                            <p class="mt-3" style="color:black;">Dimensions and weight <strong>must</strong> be included in the description!</p>
-                            <p class="mt-3">* required</p>  
-                        </form>
-                    </div>
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow rounded p-4">
+              <h2 class="mb-4">Add Product</h2>
+              <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="{{ form.category.id_for_label }}" class="form-label">Category*</label>
+                  {{ form.category|as_crispy_field }}
                 </div>
-                <div class="col-lg-1"></div>
+                <div class="mb-3">
+                  <label for="{{ form.image.id_for_label }}" class="form-label">Image*</label>
+                  {{ form.image|as_crispy_field }}
+                </div>
+                {{ form.title|as_crispy_field }}
+                {{ form.description|as_crispy_field }}
+                {{ form.price|as_crispy_field }}
+                {{ form.qte|as_crispy_field }}
+                {{ more_images|crispy }}
+                <hr>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="submit">Submit</button>
+                  <a class="btn btn-outline-primary" href="{% url 'dashboard' %}">Back</a>
+                </div>
+                <hr>
+                <p class="mt-3 text-muted">* required</p>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </section>
-</main>
+  </main>
+  
+  
 
 <script>
-    function clearField() {
-        document.getElementById("id_more_images").value = "";
-   }
+  function clearField() {
+    document.getElementById("id_more_images").value = "";
+  }
 </script>
 
 {% endblock %}
+
