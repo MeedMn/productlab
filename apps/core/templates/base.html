@@ -179,9 +179,19 @@
                         <h6>NewLetter</h6>
                         <div class="footer__newslatter">
                             <p>Be the first to know about new products</p>
-                            <form action="#">
+                            <form action="." method="get">
+                                {% csrf_token %}
+                                {% if request.user.is_authenticated %}
+                                    {% if not newsletter %}
                                 <input type="text" placeholder="Your email">
-                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                                <a type="submit" href="{% url 'newsletter' %}"><span class="icon_mail_alt"></span></a>
+                                {% else %}
+                                <a type="submit" href="{% url 'delete_newsletter' %}">unsubscribe</a>
+                                {% endif %}
+                                {% else %}
+                                <input type="text" placeholder="Your email">
+                                <a type="submit" href="{% url 'loginuser' %}"><span class="icon_mail_alt"></span></a>
+                                {% endif %}
                             </form>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from apps.product.models import Product
-
+from apps.core.models import NewsLetter
 # Create your views here.
 def index(request):
     products = Product.objects.all()
@@ -23,3 +23,16 @@ def contact(request):
         msg.send()
         messages.success(request, 'Successfully sent!')
     return render(request, 'contactUs.html')
+
+
+def newsletter(request):
+    news = NewsLetter.objects.create(email=request.user.email)
+    news.save()
+    messages.success(request, "You're now subscribed to the newsletter!")
+    return redirect(request.META['HTTP_REFERER'])
+    
+def delete_newsletter(request):
+    news = NewsLetter.objects.get(email=request.user.email)
+    news.delete()
+    messages.success(request, "You're now unsubscribed from the newsletter!")
+    return redirect(request.META['HTTP_REFERER'])
