@@ -70,7 +70,6 @@ def Login_user(request):
 
 @login_required(login_url='loginuser')
 def add_cart(request,id):
-    print("inside")
     cart = Cart(request)
     product = get_object_or_404(Product,id=id)
     cart.add(product_id=product.id)

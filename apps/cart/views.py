@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from apps.user.models import UserModel
 # Create your views here.
 def cart_detail(request):
+    print(request.GET)
     cart = Cart(request)
     remove_from_cart = request.GET.get('remove_from_cart', '')
     if remove_from_cart:

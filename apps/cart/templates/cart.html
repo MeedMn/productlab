@@ -5,6 +5,11 @@
 {% block title %}Cart{% endblock %}
 
 {% block content %}
+<style>
+    .dec,.inc{
+        visibility: hidden;
+    }
+</style>
 <section class="breadcrumb-option">
     <div class="container">
         <div class="row">
@@ -46,27 +51,27 @@
                             <tr>
                                 <td class="product_cart_item">
                                     <div class="product_cartitem_pic">
-                                        <img src="{{ item.product.get_Thumbnail }}" alt="" width="70%">
+                                        <img src="{{ item.product.get_Thumbnail }}" alt="">
                                     </div> 
                                 </td>
-                                <td>
+                                <td class="product_cart_item">
                                     <div class="product_cartitem_text">
                                         <h6>{{ item.product.title }}</h6>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="product_cartitem_text">
-                                        <h5>${{ item.product.price }}</h5>
-                                    </div>
+                                <td class="cart__price">
+                                       ${{ item.product.price }}
                                 </td>
-                                <td>
+                                <td class="product_cart_item">
                                     <div class="product_cartitem_text">
                                         <h5>{{ item.product.category.title }}</h5>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="product_cartitem_text">
-                                        <h5>{{ item.product.qte }}</h5>
+                                <td class="quantity__item">
+                                    <div class="quantity">
+                                        <div class="pro-qty-2">
+                                            {{item.quantity|default:'1'}}
+                                        </div>
                                     </div>
                                 </td>
                                 <td class="cart__close"><a href="?remove_from_cart={{ item.id }}"><i class="fa fa-close"></i></a></td>
