@@ -6,6 +6,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.urls import reverse
 from apps.product.models import Category, Comment, Product
 from django.db.models import Max
+from django.db.models import Q
+
 # Create your views here.
 
 def delete_comment(request,comment_id):
@@ -67,4 +69,22 @@ def shop(request):
         products = paginator.page(paginator.num_pages)
         
     return render(request,'shop.html',{"products":products,'max':max,'categoryTitle':"All"})
+
+def search(request):
+    query = request.GET.get('query','')
+    products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query) | Q(category__title__icontains=query) | Q(seller__name__icontains=query))
+    sort_by = request.GET.get('sort_by', None)
+    if sort_by == 'low_to_high':
+        products = products.order_by('price')
+    elif sort_by == 'high_to_low':
+        products = products.order_by('-price')
+    page2 = request.GET.get('page2', 1)
+    paginator = Paginator(products, 12)
+    try:
+        products = paginator.page(page2)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+    return render(request,'search.html',{'products':products, 'query':query})
 

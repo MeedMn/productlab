@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% load static %}
+{% load stars_tags %}
+
+{% block content %}
+
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Searched item - {{query}}</h4>
+                    <div class="breadcrumb__links">
+                        <a href="{% url 'index' %}">Home</a>
+                        <span>search</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if products %}
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shop__product__option">
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="{{ product.get_Thumbnail }}">
+                                <span class="label">New</span>
+                                <ul class="product__hover">
+                                    <li><a href="{% url 'add_wishlist' id=product.id %}"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
+                                    <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>{{product.title}}</h6>
+                                <a href="{% url 'product' product.category.slug product.slug %}" class="add-cart">See Details</a>
+                                <div class="rating">
+                                    {% stars_tag product %}
+                                </div>
+                                <h5>${{product.price}}</h5>
+                                <div class="product__color__select">
+                                    <label for="pc-1">
+                                        <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                        <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                        <input type="radio" id="pc-3">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            <div class="pagination-group">
+                                {% if products.has_other_pages %}
+                                <ul class="pagination">
+                                    {% for i in products.paginator.page_range %}
+                                        {% if products.number == i %}
+                                        <li class="active"><a style="border-color: #111111;">{{i}}</a></li>
+                                        {% else %}
+                                        <li><a href="?query={{query}}&page2={{i}}">{{i}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<div class="d-flex justify-content-center align-items-center mb-5" style="height: 30%;">
+    <h4>No search results.</h4>
+</div>
+{% endif %}
+{% endblock %}
+
+<!-- <div class="pagination">
+    {% for i in products.paginator.page_range %}
+        {% if products.number == i %}
+        <li class="active"><a style="border-color: #111111;">{{i}}</a></li>
+        {% else %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+    {% endfor %}
+</div> -->
