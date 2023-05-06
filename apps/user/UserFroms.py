@@ -16,3 +16,18 @@ class UserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+class UsernameUpdateForm(forms.ModelForm):
+	class Meta:
+		model=User
+		fields=('username',)
+
+class UserEmailUpdateForm(forms.ModelForm):
+	class Meta:
+		model=User
+		fields=('email',)
+
+class UserDeleteForm(forms.ModelForm):
+	class Meta:
+		model=User
+		fields=()

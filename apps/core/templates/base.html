@@ -55,7 +55,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 {% if request.user.is_authenticated %}
-                                <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_settings' %}">{{user.username}}</a></li>
                                 {% for s in sellers %}
                                 {% if s.name == user.username %}
                                 <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -123,7 +123,7 @@
                             </button>
                             <ul class="dropdown-menu">
                                 {% if request.user.is_authenticated %}
-                                <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_settings' %}">{{user.username}}</a></li>
                                 {% for s in sellers %}
                                 {% if s.name == user.username %}
                                 <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>

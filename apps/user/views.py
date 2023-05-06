@@ -1,9 +1,10 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.shortcuts import  render, redirect,get_object_or_404
 from apps.cart.cart import Cart
 from apps.product.models import Product
+from apps.seller.models import Seller
 from .UserFroms import *
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,update_session_auth_hash
 from django.contrib import messages
 from apps.user.UserFroms import UserForm
 from .models import UserModel
@@ -79,6 +80,95 @@ def add_cart(request,id):
     return redirect('cart')
 
 
+@login_required(login_url='loginuser')
+def account_settings(request):
+    if request.method=="POST":
+        
+        if request.POST.get("form_type")=='formOne':
+            password=request.POST['password']
+            user=request.user
+            if user.check_password(password):
+                username_form=UsernameUpdateForm(request.POST,instance=request.user)
+                if username_form.is_valid():
+                    user=username_form.save(commit=False)
+                    if len(user.username) > 15:
+                            messages.error(request,"Username too long! Only 15 characters are allowed")
+                            return redirect("account_settings")
+                    all_users = UserModel.objects.all()
+                    for user1 in all_users:
+                        if user1.name == user.username:
+                            messages.error(request,"That username is already in use")
+                            return redirect("account_settings")
+                    user=username_form.save(commit=True)
+                    users=UserModel.objects.get(creator=request.user)
+                    users.name=user.username
+                    users.save()
+                    seller=Seller.objects.filter(creator=request.user)
+                    if seller.exists():
+                        v=Seller.objects.get(creator=request.user)
+                        v.name=user.username
+                        v.save()
+                    messages.success(request,"Your username was successfully updated!")
+                    return redirect('account_settings')
+                else:
+                    messages.error(request,"That username is not valid")
+                    return redirect('account_settings')
+            else:
+                messages.error(request,"Incorrect password!")
+                return redirect('account_settings')
+
+        elif request.POST.get("form_type")=='formTwo':
+            form=PasswordChangeForm(request.user,request.POST)
+            if form.is_valid():
+                user=form.save()
+                update_session_auth_hash(request,user)
+                messages.success(request,"Your password was successfully updated")
+                return redirect('account_settings')
+            elif form.cleaned_data.get('new_password1') == form.cleaned_data.get('new_password2'):
+                messages.error(request,"Incorrect password!")
+                return redirect('account_settings')
+            else:
+                messages.error(request,"New passwords don't match, try again")
+                return redirect('account_settings')
+
+        elif request.POST.get("form_type")=='formThree':
+            password=request.POST['password']
+            user=request.user
+            if user.check_password(password):
+                useremail_form=UserEmailUpdateForm(request.POST,instance=request.user)
+                if useremail_form.is_valid():
+                    print(request.user)
+                    user=useremail_form.save(commit=False)
+                    
+                    all_users = UserModel.objects.all()
+                    for user1 in all_users:
+                        if user1.email == user.email:
+                            messages.error(request,"That email is already in use")
+                            return redirect("account_settings")
+                    user=useremail_form.save(commit=True)
+                    users=UserModel.objects.get(creator=request.user)
+                    users.email = user.email
+                    users.save()
+                    seller=Seller.objects.filter(creator=request.user)
+                    if seller.exists():
+                        v=Seller.objects.get(creator=request.user)
+                        v.email=user.email
+                        v.save()
+                    messages.success(request,"Your email was successfully updated!")
+                    return redirect('account_settings')
+                else:
+                    messages.error(request,"That email is not valid")
+                    return redirect("account_settings")
+            else:
+                messages.error(request,"Incorrect password!")
+
+        elif request.POST.get("form_type")=='formFour':
+            delete_form=UserDeleteForm(request.POST,instance=request.user)
+            user=request.user
+            user.delete()
+            return redirect("/")
+
+    return render(request, "account_settings.html")
 
 @login_required(login_url='loginuser')
 def wishlist(request):

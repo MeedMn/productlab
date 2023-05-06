@@ -10,6 +10,7 @@ urlpatterns = [
      path('wishlist/',views.wishlist,name = 'wishlist'),
     path('<int:id>', views.add_wishlist, name='add_wishlist'),
     path('delete_wishlist/<int:id>/<int:redirect_option>',views.delete_wishlist ,name='delete_wishlist'),
+    path('account_settings/',views.account_settings,name = 'account_settings'),
     path('logout/',auth_views.LogoutView.as_view(),name='logout'),
     path('login/',auth_views.LoginView.as_view(template_name='Login_user.html'),name='login'),
 ]
