@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Login {% endblock %}
+{% block title %}WishList{% endblock %}
 
 {% load static %}
 
@@ -30,9 +30,9 @@
     <div class="container">
         {% if wishlist %}
         <div class="row">
-            <div class="col-lg-8">
-                <div class="shopping_cart_table">
-                    <table>
+            <div class="col-lg-12">
+                <div class="table-responsive shopping_cart_table">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Image</th>
@@ -87,4 +87,5 @@
         {% endif %}
     </div>
 </section>
+
 {% endblock %}
