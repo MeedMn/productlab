@@ -1,4 +1,4 @@
-# productlab
+# ProductLab
 This is an e-commerce website for the sale of Men Clothing,Women Clothin,Accessories and Electronics
 
 # Demonstrations :
@@ -73,3 +73,29 @@ seeing the products added to the cart
 
 that's a working contact us form
 ![alt text](https://github.com/MeedMn/productlab/blob/1ff46d5b5b0e9db7fc76bbf0c29c1685c7e0d236/static/dist/img/screeshots/ContactUs.png)
+
+# Prerequisites
+To install all dependencies, run:
+```bash
+pip install -r requirements.txt
+```
+
+# Issues and tasks that would be finished if we have more time:
+
+* Fully implementing responsive web design
+
+* Adding User/Seller profile
+
+* Adding Rating action
+
+* Adding a chatbot team support
+
+* Adding Seller page that will be shown to the user
+
+* Creating custom exceptions and errors handling (404, 500, etc.)
+
+* Styling the sent emails
+
+* Adding more categories
+
+* More sections such as Privacy policy,... 
