@@ -16,7 +16,7 @@
                             <h6>New Collection</h6>
                             <h2>Seasonal Collections 2023</h2>
                             <p>We're a dope label crafting high-end essentials with a real commitment to ethical production and sick quality.Experience the difference with our dope collection.</p>
-                            <a href="#" class="primary-btn">Shop now</a>
+                            <a href="{% url 'shop' %}" class="primary-btn">Shop now</a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -36,7 +36,7 @@
                             <h6>New Collection</h6>
                             <h2>Cutting-Edge Technologies of 2023</h2>
                             <p>Yo, we're the go-to brand for premium tech essentials. Our gear is crafted with mad ethics and our quality is off the hook.</p>
-                            <a href="#" class="primary-btn">Shop now</a>
+                            <a href="{% url 'shop' %}" class="primary-btn">Shop now</a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -56,7 +56,7 @@
                             <h6>New Collection</h6>
                             <h2>Accessorize Like a Boss - 2023</h2>
                             <p>Elevate your fashion sense and stand out from the crowd with our exclusive collection of accessories. Upgrade your style game and make a statement wherever you go.</p>
-                            <a href="#" class="primary-btn">Shop now</a>
+                            <a href="{% url 'shop' %}" class="primary-btn">Shop now</a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -76,7 +76,7 @@
                             <h6>New Collection</h6>
                             <h2>Fall - Winter Collections 2023</h2>
                             <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering commitment to exceptional quality.</p>
-                            <a href="#" class="primary-btn">Shop now</a>
+                            <a href="{% url 'shop' %}" class="primary-btn">Shop now</a>
                             <div class="hero__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Clothing Collections 2030</h2>
-                        <a href="#">Shop now</a>
+                        <a href="{% url 'shop' %}">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Accessories</h2>
-                        <a href="#">Shop now</a>
+                        <a href="{% url 'shop' %}">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Electronics</h2>
-                        <a href="#">Shop now</a>
+                        <a href="{% url 'shop' %}">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                     <div class="product__item__pic set-bg" data-setbg="{{ product.get_Thumbnail }}">
                         <span class="label">New</span>
                         <ul class="product__hover">
-                            <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
+                            <li><a href="{% url 'add_wishlist' id=product.id %}"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
                             <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                         </ul>
                     </div>
@@ -178,7 +178,7 @@
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="{{ product.get_Thumbnail }}">
                         <ul class="product__hover">
-                            <li><a href="#"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
+                            <li><a href="{% url 'add_wishlist' id=product.id %}"><img src="{% static 'dist/img/icon/heart.png' %}" alt=""></a></li>
                             <li><a href="{% url 'add_cart' id=product.id %}"><img src="{% static 'dist/img/icon/cart.png' %}" alt=""></a></li>
                         </ul>
                     </div>
