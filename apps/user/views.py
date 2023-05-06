@@ -63,6 +63,7 @@ def Login_user(request):
                 messages.success(request, 'Signed in successfully!')
                 return redirect("/")
         else:
+            messages.error(request,"verify the username and the password")
             return redirect('loginuser')
     else:
         form = AuthenticationForm()
@@ -73,7 +74,7 @@ def add_cart(request,id):
     cart = Cart(request)
     product = get_object_or_404(Product,id=id)
     cart.add(product_id=product.id)
-    messages.success(request, 'This artwork was added to the cart!')
+    messages.success(request, 'This Product was added to the cart!')
     user1 = UserModel.objects.get(name=request.user.username)
     return redirect('cart')
 
@@ -104,7 +105,7 @@ def add_wishlist(request,id):
     if not WishList.objects.filter(Q(user=user1) & Q(product=Product.objects.get(id=id))):
         wishlist = WishList.objects.create(user=user1, product = Product.objects.get(id=id))
         wishlist.save()
-        messages.success(request, 'This artwork is in now in your wishlist!')
+        messages.success(request, 'This Product is in now in your wishlist!')
     return redirect('/'+wishlist.product.category.slug+"/"+wishlist.product.slug)
 
 
@@ -117,8 +118,8 @@ def delete_wishlist(request,id,redirect_option):
     product = Product.objects.get(id=id)
     wishlist.delete()
     if not redirect_option == 1:
-        messages.success(request, 'That artwork has been removed from your wishlist')
+        messages.success(request, 'That Product has been removed from your wishlist')
         return redirect('wishlist')
     else:
-        messages.success(request, 'This artwork has been removed from your wishlist')
+        messages.success(request, 'This Product has been removed from your wishlist')
         return redirect('/'+product.category.slug+'/'+product.slug)

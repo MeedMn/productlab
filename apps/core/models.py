@@ -23,9 +23,9 @@ def hear_signal(sender , instance , **kwargs):
             to_emails.append(str(subscriber.email))
             print(subscriber.email)
 
-        subject1 = 'New artwork published!'
-        text_content1 = 'New artwork added'
-        html_content1 = render_to_string('new_artwork_newsletter.html', {'product': instance})
+        subject1 = 'New Product published!'
+        text_content1 = 'New Product added'
+        html_content1 = render_to_string('new_Product_newsletter.html', {'product': instance})
         msg1 = EmailMultiAlternatives(subject1, text_content1, from_email, bcc=to_emails)
         msg1.attach_alternative(html_content1, 'text/html')
         msg1.send()

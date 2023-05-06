@@ -13,6 +13,6 @@ def cart_detail(request):
     remove_from_cart = request.GET.get('remove_from_cart', '')
     if remove_from_cart:
         cart.remove(remove_from_cart)
-        messages.success(request, 'That artwork was removed from the cart')
+        messages.success(request, 'That Product was removed from the cart')
         return redirect('cart')
     return render(request, 'cart.html', {})

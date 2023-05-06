@@ -8,6 +8,8 @@ from apps.core.models import NewsLetter
 def index(request):
     products = Product.objects.all()
     newarrivals = Product.objects.all().order_by('-date_added')[:12]
+    if not request.user.is_authenticated:
+        messages.success(request, 'By using our website, you agree to our Terms & Conditions')
     return render(request, 'index.html',{"newarrivals":newarrivals,"hotsales":products[13:25]})
 
 def about(request):

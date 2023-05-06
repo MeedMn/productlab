@@ -96,7 +96,7 @@ def add_product(request):
                     for image in images:
                         image = ProductImage(image=image, product=product)
                         image.save()
-                messages.success(request, 'Your artwork is now pending review!')
+                messages.success(request, 'Your Product is now pending review!')
             else:
                 messages.error(request,"The price must be between €1 and €9999!")
                 return render(request,'add_product.html',{'form':form,'more_images':more_images})
@@ -137,7 +137,7 @@ def updateProduct(request,primaryKey):
                     for image in images:
                         image = ProductImage(image=image, product=product)
                         image.save()
-                messages.success(request, 'Your artwork is now pending review!')
+                messages.success(request, 'Your Product is now pending review!')
             else:
                 messages.error(request,"The price must be between €1 and €9999!")
                 return render(request,'updateProduct.html',{'form':form,'more_images':more_images})

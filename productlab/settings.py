@@ -84,6 +84,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'apps.core.context_processors.newsletter',
                 'apps.cart.context_processors.cart',
                 'apps.seller.context_processors.sellers',
                 'apps.product.context_processors.menu_categories',
