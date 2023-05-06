@@ -84,8 +84,6 @@ pip install -r requirements.txt
 
 * Fully implementing responsive web design
 
-* Adding User/Seller profile
-
 * Adding Rating action
 
 * Adding a chatbot team support
