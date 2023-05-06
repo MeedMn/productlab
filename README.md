@@ -3,7 +3,7 @@ This is an e-commerce website for the sale of Men Clothing,Women Clothin,Accesso
 
 # Demonstrations :
 
------------------------------------------------ Home Page ----------------------------------------------- 
+# ----------------------------------------------- Home Page ----------------------------------------------- 
 
 This home pages is having a Nav bar with links like Home,Shop,Categories,About-Us,Contact-Us,and wishlist page without forgetting a cart page and a dropdown to sign-in sign-up as a use.
 ![alt text](https://github.com/MeedMn/productlab/blob/1ff46d5b5b0e9db7fc76bbf0c29c1685c7e0d236/static/dist/img/screeshots/homepage.png)
